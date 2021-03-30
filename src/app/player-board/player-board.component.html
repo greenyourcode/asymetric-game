@@ -1,0 +1,10 @@
+<p>player-board {{ player }}!</p>
+<p>
+    {{ message }}
+</p>
+<form [formGroup]="form">
+    <textarea formControlName="sendingMessage"></textarea> <br />
+    <input type="text" formControlName="publicKey" /> <br />
+</form>
+<button (click)="keyGenerationEvent.emit()">Génerer</button>
+<button (click)="sendingHandler()">Envoyer</button>
