@@ -12,14 +12,22 @@ export class CryptoService {
   constructor() { }
 
   generatePublicKey() {
-    return uuidv4();
+    this.publicKey = uuidv4();
   }
 
-  encodeMessage(message: string, publicKey: string) {
+  generatePrivateRKey() {
+    return 'receiver_key';
+  }
+
+  generatePrivateEKey() {
+    return 'emitter_key';
+  }
+
+  encodeMessage(message: string, publicKey: string, privateKey?: string) {
     return message;
   }
 
-  decodeMessage(encodedMessage: string, publicKey: string) {
+  decodeMessage(encodedMessage: string, publicKey: string, privateKey?: string) {
     return encodedMessage;
   }
 

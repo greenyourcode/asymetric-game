@@ -1,4 +1,10 @@
-<app-player-board [player]="Player.Player1" [encodedMessage]="cryptoService.message$ | async" [publicKey]="publicKey" (keyGenerationEvent)="onKeyGeneration()"></app-player-board>
-<app-player-board [player]="Player.Player2" (sendingEvent)="onSendingMessage($event)"></app-player-board>
+<!-- <app-player-board [player]="Player.Player1" [encodedMessage]="cryptoService.message$ | async" [publicKey]="publicKey"
+    (keyGenerationEvent)="onKeyGeneration()"></app-player-board>
+<app-player-board [player]="Player.Player2" (sendingEvent)="onSendingMessage($event)"></app-player-board> -->
+
+<app-receiver [message]="encodedMessage"></app-receiver>
+<hr />
+<app-emitter (formEvent)="onMessageEmitterEvent($event)"></app-emitter>
 <br /><br />
-Clé publique : {{ publicKey }}
+Clé publique : {{ cryptoService.publicKey }} <br />
+Message encodé : {{ encodedMessage }}

@@ -11,15 +11,20 @@ export class AppComponent {
   title = 'asymetric-game';
   Player = Player;
   publicKey: string;
+  encodedMessage: string;
 
-  constructor(private cryptoService: CryptoService) {
+  constructor(public cryptoService: CryptoService) {
   }
 
-  onKeyGeneration() {
-    this.publicKey = this.cryptoService.generatePublicKey();
-  }
+  // onKeyGeneration() {
+  //   this.publicKey = this.cryptoService.generatePublicKey();
+  // }
 
-  onSendingMessage(message: any) {
-    console.log('sendingmessage: ', message.sendingMessage);
+  // onSendingMessage(message: any) {
+  //   console.log('sendingmessage: ', message.sendingMessage);
+  // }
+
+  onMessageEmitterEvent(encodedMessage: any) {
+    this.encodedMessage = encodedMessage;
   }
 }
