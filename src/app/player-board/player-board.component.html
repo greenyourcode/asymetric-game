@@ -1,10 +1,12 @@
 <p>player-board {{ player }}!</p>
-<p>
-    {{ message }}
+<p *ngIf="player === Player.Player1">
+    {{ messageP1 }}
+</p>
+<p *ngIf="player === Player.Player2">
+    {{ messageP2 }}
 </p>
 <form [formGroup]="form">
     <textarea formControlName="sendingMessage"></textarea> <br />
-    <input type="text" formControlName="publicKey" /> <br />
 </form>
-<button (click)="keyGenerationEvent.emit()">Génerer</button>
+<button *ngIf="player === Player.Player1" (click)="keyGenerationEvent.emit()">Génerer</button>
 <button (click)="sendingHandler()">Envoyer</button>

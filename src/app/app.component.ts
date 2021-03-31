@@ -16,14 +16,11 @@ export class AppComponent {
   constructor(public cryptoService: CryptoService) {
   }
 
-  // onKeyGeneration() {
-  //   this.publicKey = this.cryptoService.generatePublicKey();
-  // }
+  onKeyGeneration() {
+    this.cryptoService.generatePublicKey();
+  }
 
-  // onSendingMessage(message: any) {
-  //   console.log('sendingmessage: ', message.sendingMessage);
-  // }
-
+  // case 2
   onMessageEmitterEvent(encodedMessage: any) {
     this.encodedMessage = encodedMessage;
   }

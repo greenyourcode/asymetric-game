@@ -7,7 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class CryptoService {
   publicKey: string;
-  message$ = new Subject();
+  messageP1$ = new Subject();
+  messageP2$ = new Subject();
 
   constructor() { }
 
@@ -31,8 +32,8 @@ export class CryptoService {
     return encodedMessage;
   }
 
-  createMessage(message: string, publicKey: string) {
-    const encodedMessage = this.encodeMessage(message, publicKey);
-    this.message$.next(encodedMessage);
+  createMessage(message: string, publicKey: string, privateKey: string) {
+    const encodedMessage = this.encodeMessage(message, publicKey, privateKey);
+    return encodedMessage;
   }
 }

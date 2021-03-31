@@ -11,29 +11,40 @@ import { Player } from '../player.enum';
 export class PlayerBoardComponent implements OnInit, OnChanges {
   @Input() player: Player;
   @Input() encodedMessage: string;
-  @Input() publicKey: string;
   @Output() keyGenerationEvent = new EventEmitter();
-  @Output() sendingEvent = new EventEmitter();
   form: FormGroup;
-  message: string;
+  messageP1: string;
+  messageP2: string;
+  Player = Player;
 
   constructor(private cryptoService: CryptoService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    this.message = this.cryptoService.decodeMessage(this.encodedMessage, this.publicKey);
+    if (this.player === Player.Player1) {
+      this.messageP1 = this.cryptoService.decodeMessage(this.encodedMessage, this.cryptoService.publicKey);
+    } else if (this.player === Player.Player2) {
+      this.messageP2 = this.cryptoService.decodeMessage(this.encodedMessage, this.cryptoService.publicKey);
+    }
   }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       sendingMessage: new FormControl(''),
-      publicKey: new FormControl(''),
     });
   }
 
-  sendingHandler(){
-    this.sendingEvent.emit(this.form.value);
-    this.cryptoService.createMessage(this.form.value?.sendingMessage, this.publicKey);
+  sendingHandler() {
+    const message = this.form.value?.sendingMessage;
+    let encodeMessage;
+    if (this.cryptoService.publicKey != null) {
+      if (this.player === Player.Player1) {
+        encodeMessage = this.cryptoService.createMessage(message, this.cryptoService.publicKey, this.cryptoService.generatePrivateRKey());
+        this.cryptoService.messageP2$.next(encodeMessage);
+      } else if (this.player === Player.Player2) {
+        encodeMessage = this.cryptoService.createMessage(message, this.cryptoService.publicKey, this.cryptoService.generatePrivateRKey());
+        this.cryptoService.messageP1$.next(encodeMessage);
+      }
+    }
   }
 
 }
